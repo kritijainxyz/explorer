@@ -59,15 +59,15 @@ public class FileController {
 
     @Transactional
     @ResponseBody
-    @RequestMapping(value = "/files/{fileId}/user/{userId}/delete", method = {RequestMethod.DELETE})
-    public void permanentDelete(@PathVariable("fileId") long fileId, @PathVariable("userId") long userId) {
-        fileService.permanentDelete(fileId, userId);
+    @RequestMapping(value = "/files/user/{userId}/delete", method = {RequestMethod.PATCH})
+    public void permanentDelete(@RequestBody long[] fileIds, @PathVariable("userId") long userId) {
+        fileService.permanentDelete(fileIds, userId);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/files/{fileId}/copy", method = {RequestMethod.POST})
-    public void createCopy(@PathVariable("fileId") long fileId) {
-        fileService.createCopy(fileId);
+    @RequestMapping(value = "/files/{fileId}/user/{userId}/copy", method = {RequestMethod.POST})
+    public void createCopy(@PathVariable("fileId") long fileId, @PathVariable("userId") long userId) {
+        fileService.createCopy(fileId, userId);
     }
 
     @ResponseBody
@@ -170,4 +170,12 @@ public class FileController {
         }
         return null;
     }
+
+    /*@ResponseBody
+    @RequestMapping(value = "/files/{userId}/parent/{parentId}/filename/{fileName}", consumes = {"application/json"}, produces = {"application/json"}, method = {RequestMethod.POST})
+    public User createFolder(@PathVariable("userId") long userId, @PathVariable("parentId") long parentId, @PathVariable("fileName") String fileName) {
+        return fileService.createFolder(userId, parentId, fileName);
+    }
+    */
+
 }

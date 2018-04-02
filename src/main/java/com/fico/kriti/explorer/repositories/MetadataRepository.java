@@ -1,9 +1,11 @@
 package com.fico.kriti.explorer.repositories;
 
+import com.fico.kriti.explorer.model.FileDetail;
 import com.fico.kriti.explorer.model.FileMetadata;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,4 +16,6 @@ public interface MetadataRepository extends PagingAndSortingRepository <FileMeta
     List<FileMetadata> findAll();
     FileMetadata findByFileIdAndAndSharedUserId(@PathVariable("fileId") long fileId, @PathVariable("SharedUserId") long SharedUserId);
     List<FileMetadata> findBySharedUserId(@PathVariable("SharedUserId") long SharedUserId);
+    void deleteAllByFileId(@PathVariable("fileId") long fileId);
+//    void removeAll(List<FileMetadata> file);
 }

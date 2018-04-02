@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">Upload file</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form name="uploadForm" action="/files/user/1/upload" method="post">
+  <div class="modal-body">
+    Select a file: <input type="file" id="uploadInput" #fileEl>
+    <!--<input type="submit" value="submit" (click)="updateSize();">-->
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-info" (click)="submitUpload(fileEl.files[0])"
+            (click)="activeModal.dismiss('Close click')">Submit
+    </button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Close click')">Close</button>
+  </div>
+</form>

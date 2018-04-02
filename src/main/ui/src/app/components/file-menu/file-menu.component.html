@@ -1,0 +1,30 @@
+<br /><br />
+<h1 style="color: teal "><strong>Files</strong></h1>
+<br /><br />
+
+<!--
+<h3>
+  <ul class="list-group">
+    <li class="list-group-item active">All Files</li>
+    <li class="list-group-item">My files</li>
+    <li class="list-group-item">Sharing</li>
+    <li class="list-group-item">Trashed</li>
+    <li class="list-group-item">Starred</li>
+    <li class="list-group-item">Important</li>
+    <li class="list-group-item">Personal</li>
+  </ul>
+</h3>
+-->
+
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action" (click)="getAllFiles()" (click)="getWhat('all')">All Files</button>
+  <button type="button" class="list-group-item list-group-item-action" (click)="getOwnedFiles()" (click)="getWhat('my')">My Files</button>
+  <button type="button" class="list-group-item list-group-item-action" (click)="getSharedFiles()" (click)="getWhat('shared')">Shared with me</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="getTrashedFiles()" (click)="getWhat('trashed')">Trashed</button>
+
+
+  <button type="button" class="list-group-item list-group-item-action " (click)="getStarred()" (click)="getWhat('starred')">Starred</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="getImportant()" (click)="getWhat('important')">Important</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="getPersonal()" (click)="getWhat('personal')">Personal</button>
+
+</div>

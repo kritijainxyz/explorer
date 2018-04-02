@@ -143,29 +143,58 @@ public class FileServiceImpl {
         return fileRepository.findByFileIdAndUserId(fileId, userId);
     }
 
-    public void permanentDelete(long fileId, long userId) {
+    public void permanentDelete(long[] fileIds, long userId) {
         //System.out.println(fileId);
-        FileDetail obj = fileRepository.findByFileIdAndUserId(fileId, userId);
-        fileRepository.deleteByFileIdAndUserId(fileId, userId);
-
         User user = userService.findUserById(userId);
-        user.deleteFileDetail(obj);
+
+        for(int i=0;i<fileIds.length;i++) {
+            FileDetail obj = fileRepository.findByFileIdAndUserId(fileIds[i], userId);
+            fileRepository.deleteByFileIdAndUserId(fileIds[i], userId);
+
+            user.deleteFileDetail(obj);
+        }
         userRepository.save(user);
     }
 
     //to be done
-    public void createCopy(long fileId) {
-        FileDetail obj = fileRepository.findByFileId(fileId);
+    public void createCopy(long fileId, long userId) {
+        FileDetail obj = fileRepository.findByFileIdAndUserId(fileId, userId);
         FileDetail newObj = new FileDetail();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
         String formattedDate = sdf.format(new Date());
-
-        copyProperties(obj, newObj);
+        /*
         newObj.setFileName("Copy of " + obj.getFileName());
         newObj.setFileId(0);
         newObj.setCreatedOn(formattedDate);
         newObj.setModifiedOn(formattedDate);
+        fileRepository.save(newObj);*/
+
+        copyProperties(obj, newObj);
+        newObj.setFileId(0);
+        newObj.setCreatedOn(formattedDate);
+        newObj.setModifiedOn(formattedDate);
+        newObj.setFileName("Copy of " + obj.getFileName());
+
+        Content content = new Content();
+        content.setFileId(0);
+        content.setFileContent(obj.getContent().getFileByteContent());
+        newObj.setContent(content);
+        contentRepository.save(content);
         fileRepository.save(newObj);
+
+
+        FileMetadata fileMetadata = new FileMetadata();
+        fileMetadata.setFileId(newObj.getFileId());
+        fileMetadata.setOwnerId(userId);
+        fileMetadata.setSharedUserId(userId);
+        fileMetadata.setPermission(3);
+        newObj.setMetadata(fileMetadata);
+        metadataRepository.save(fileMetadata);
+        fileRepository.save(newObj);
+
+        User user = userService.findUserById(userId);
+        user.setFileDetail(newObj);
+        userRepository.save(user);
     }
 
     public void move(long fileId, long userId, long parentId) {
@@ -426,22 +455,43 @@ public class FileServiceImpl {
                 .body(resource);
     }
 
-/*
-    ByteArrayResource byteArrayResource = null;
-        try {
-        byteArrayResource = new ByteArrayResource(content.getContent());
-    }
-        catch (Exception e){
-        throw new RecordNotFoundException("File Content not found");
-    }
-    HttpHeaders header = new HttpHeaders();
-        header.set("Content-Disposition",
-                "attachment; filename=\"" + record.getName()+"\"");
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-            .headers(header)
-                .body(byteArrayResource);
-*/
+    /*public User createFolder(long userId, long parentId, String fileName) {
+        FileDetail obj = new FileDetail();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+        String formattedDate = sdf.format(new Date());
+        obj.setCreatedOn(formattedDate);
+        obj.setModifiedOn(formattedDate);
+        obj.setFileName(fileName);
+        obj.setFileType("application/text");
+        obj.setUserId(userId);
+        obj.setFolder(true);
+        obj.setParentId(parentId);
+
+        Content content = new Content();
+        //content.setFileId(obj.getFileId());
+        content.setFileId(0);
+        content.setFileContent(null);
+        obj.setContent(content);
+        contentRepository.save(content);
+        fileRepository.save(obj);
+
+        FileMetadata fileMetadata = new FileMetadata();
+        fileMetadata.setFileId(obj.getFileId());
+        fileMetadata.setOwnerId(userId);
+        fileMetadata.setSharedUserId(userId);
+        fileMetadata.setPermission(3);
+        obj.setMetadata(fileMetadata);
+        metadataRepository.save(fileMetadata);
+        fileRepository.save(obj);
+
+        User user = userService.findUserById(userId);
+
+
+        user.setFileDetail(obj);
+        userRepository.save(user);
+
+        return user;
+    }*/
 
 }
 

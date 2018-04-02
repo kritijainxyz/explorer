@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{getFileName()}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <textarea class="form-control-lg" width="300px" value="{{getFileContent()}}" #content></textarea>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-info"  (click)="saveContent(content.value)" (click)="activeModal.dismiss('Close click')">Save</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Close click')">Close</button>
+</div>

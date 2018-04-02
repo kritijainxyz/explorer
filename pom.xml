@@ -6,7 +6,7 @@
 	<groupId>com.fico.kriti</groupId>
 	<artifactId>explorer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>explorer</name>
 	<description>Demo project for Spring Boot</description>
@@ -63,6 +63,12 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.6.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fico.dmp.core</groupId>
+			<artifactId>com.fico.dmp</artifactId>
+			<version>2.3.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
@@ -70,17 +76,43 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.7.2</version>
+		</dependency>
 
 	</dependencies>
 
 	<build>
+        <resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+            <resource>
+                <directory>src/main/ui/dist</directory>
+                <targetPath>explorer-ui/</targetPath>
+            </resource>
+        </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 		</plugins>
 	</build>
 
 
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

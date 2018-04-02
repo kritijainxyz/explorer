@@ -1,0 +1,43 @@
+<br /><br />
+<h1 align="center" color style="color: teal "><strong>Options</strong></h1>
+<br /><br />
+{{selections}}
+<!--<h3>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of items">{{item}}</li>
+  </ul>
+</h3>-->
+
+<div class="list-group">
+  <button type="button" class="list-group-item list-group-item-action" (click)="createpop()">Create new file</button>
+  <button type="button" class="list-group-item list-group-item-action" (click)="renamepop()" [disabled]="selections!= null && selections.length!=1">Rename</button>
+  <button type="button" class="list-group-item list-group-item-action" (click)="copy()" [disabled]="selections!= null && selections.length!=1">Create a copy</button>
+  <button type="button" class="list-group-item list-group-item-action" (click)="trash()" [disabled]="selections!= null && selections.length<1">Move to Trash</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="restore()" [disabled]="selections!= null && selections.length<1">Restore</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="delete()" [disabled]="selections!= null && selections.length<1">Delete</button>
+  <!--<button type="button" class="list-group-item list-group-item-action " (click)="move()" [disabled]="selections!= null && selections.length!=1">Move</button>-->
+  <button type="button" class="list-group-item list-group-item-action " (click)="sharepop()" [disabled]="selections!= null && selections.length!=1">Share</button>
+
+  <button type="button" class="list-group-item list-group-item-action " (click)="tagStar()" [disabled]="(selections!= null && selections.length<1)">TagStar</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="tagImportant()" [disabled]="(selections!= null && selections.length<1)">TagImportant</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="tagPersonal()" [disabled]="(selections!= null && selections.length<1)">TagPersonal</button>
+
+  <button type="button" class="list-group-item list-group-item-action " (click)="uploadpop()">Upload</button>
+  <button type="button" class="list-group-item list-group-item-action " (click)="download()" [disabled]="(selections!= null && selections.length!=1)">Download</button>
+
+</div>
+
+<!--<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link active" (click)="createpop()">Create new file</a>
+  </li>
+  <li button type="button" class="nav-item" (click)="tagStar()">
+    <a class="nav-link" (click)="tagStar()">TagStar</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Disabled</a>
+  </li>
+</ul>-->

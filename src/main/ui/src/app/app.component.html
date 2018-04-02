@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-2">
+      <app-file-menu align="center"></app-file-menu>
+    </div>
+
+    <div class="col-lg-8">
+      <br/><br/>
+      <app-file-list (onSelectionChange)="onSelectionChange($event)"></app-file-list>
+    </div>
+
+    <div class="col-lg-2">
+      <app-file-options align="center"></app-file-options>
+    </div>
+  </div>
+</div>

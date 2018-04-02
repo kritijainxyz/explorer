@@ -1,0 +1,53 @@
+<script src="https://use.fontawesome.com/cec7b57c46.js"></script>
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3" align="center">Explorer</h1>
+  </div>
+</div>
+
+<div *ngIf="!files.length;else displayTable">
+  No files
+</div>
+
+<ng-template #displayTable>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>File Id</th>
+      <th>File Name</th>
+      <th>Last Modified</th>
+      <th>Owner</th>
+      <th>File Type</th>
+     <!-- <th>Tags</th>-->
+      <th>File Size(Bytes)</th>
+    </tr>
+    </thead>
+
+
+    <tbody *ngFor="let f of files">
+    <tr>
+      <td>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" [ngModel]="localSelections[f.fileId]"
+                   (ngModelChange)="onItemChecked($event , f)">
+          </label>
+        </div>
+      </td>
+      <td>{{f.fileId}}</td>
+      <td *ngIf="f.fileType=='application/text'; else other"
+          (dblclick)="editText(f.fileName, f.fileId,f.content.fileContent)">{{f.fileName}}
+      </td>
+      <ng-template #other>
+        <td>{{f.fileName}}</td>
+      </ng-template>
+      <td>{{f.modifiedOn}}</td>
+      <td>{{f.userId}}</td>
+      <td>{{f.fileType}}</td>
+      <!--<td *ngIf="f.getMetadata().isStarred()">starred</td>-->
+      <td>{{f.fileSize}}</td>
+    </tr>
+    </tbody>
+  </table>
+</ng-template>
